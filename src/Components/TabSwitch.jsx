@@ -2,11 +2,11 @@ import React, { memo, useState } from 'react'
 
 const TabSwitch = ({tabs}) => {
 
-    const [toggleTab, setToggleTab] = useState(tabs[0]);
+    const [toggleTab, setToggleTab] = useState(tabs[0].value);
 
-    const switchTab = (index) =>
+    const switchTab = (value) =>
     {
-        setToggleTab(tabs[index]);
+        setToggleTab(value);
     }
 
     return (
@@ -14,12 +14,12 @@ const TabSwitch = ({tabs}) => {
         <div className='mb-[15px] p-2'>
             {
                 tabs.map((tab,index)=>(
-                    <button key={(tab.label)+index} className='mb-[15px] w-[50%] p-2' onClick={()=>switchTab(index)}>{tab.label}</button>
+                    <button key={(tab.label)+index} className='mb-[15px] w-[50%] p-2' onClick={()=>switchTab(tab.value)}>{tab.label}</button>
                 ))
             }
 
             {
-                <toggleTab.value/>  
+                toggleTab
             }
 
         </div>

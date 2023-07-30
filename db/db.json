@@ -1,0 +1,724 @@
+{
+  "technologyQuestions": [
+    {
+      "id": 1,
+      "technology": "Python",
+      "data": [
+        {
+          "id": 1,
+          "question": "What is the maximum possible length of an identifier?",
+          "option": [
+            "16",
+            "32",
+            "64",
+            "none of these"
+          ],
+          "correct_answer": "none of these"
+        },
+        {
+          "id": 2,
+          "question": "Who developed the Python language?",
+          "option": [
+            "Zim den",
+            "Guido Van Rossum",
+            "Nice Stom",
+            "Wick Van Rossum"
+          ],
+          "correct_answer": "Guido Van Rossum"
+        },
+        {
+          "id": 3,
+          "question": "In which year was the Python language developed?",
+          "option": [
+            "1995",
+            "1972",
+            "1981",
+            "1989"
+          ],
+          "correct_answer": "1989"
+        },
+        {
+          "id": 4,
+          "question": "In which language is Python written?",
+          "option": [
+            "English",
+            "PHP",
+            "C",
+            "All of these"
+          ],
+          "correct_answer": "C"
+        },
+        {
+          "id": 5,
+          "question": "Which one of the following is the correct extension of the Python file?",
+          "option": [
+            ".py",
+            ".python",
+            ".p",
+            "none of these"
+          ],
+          "correct_answer": ".py"
+        },
+        {
+          "id": 6,
+          "question": "In which year was the Python 3.0 version developed?",
+          "option": [
+            "2008",
+            "2005",
+            "2000",
+            "2010"
+          ],
+          "correct_answer": "2008"
+        },
+        {
+          "id": 7,
+          "question": "What do we use to define a block of code in Python language?",
+          "option": [
+            "key",
+            "brackets",
+            "Indentation",
+            "None of these"
+          ],
+          "correct_answer": "Indention"
+        },
+        {
+          "id": 8,
+          "question": "Which character is used in Python to make a single line comment?",
+          "option": [
+            "#",
+            "!",
+            "/",
+            "//"
+          ],
+          "correct_answer": "#"
+        },
+        {
+          "id": 9,
+          "question": "What is the method inside the class in python language?",
+          "option": [
+            "object",
+            "function",
+            "Attribute",
+            "Argument"
+          ],
+          "correct_answer": "function"
+        },
+        {
+          "id": 10,
+          "question": "Which of the following declarations is incorrect?",
+          "option": [
+            "_x=2",
+            "__x=3",
+            "__XYZ__=5",
+            "None of these"
+          ],
+          "correct_answer": "none of these"
+        },
+        {
+          "id": 11,
+          "question": "Why does the name of local variables start with an underscore discouraged?",
+          "option": [
+            "To identify the variable",
+            "It confuses the interpreter",
+            "It indicates a private variable of a class",
+            "None of these"
+          ],
+          "correct_answer": "It indicates a private variable of a class"
+        },
+        {
+          "id": 12,
+          "question": "Which of the following is not a keyword in Python language?",
+          "option": [
+            "val",
+            "raise",
+            "try",
+            "with"
+          ],
+          "correct_answer": "val"
+        },
+        {
+          "id": 13,
+          "question": "Which of the following statements is correct for variable names in Python language?",
+          "option": [
+            "All variable names must begin with an underscore.",
+            "Unlimited length",
+            "The variable name length is a maximum of 2.",
+            "All of the Above"
+          ],
+          "correct_answer": "Unlimited length"
+        },
+        {
+          "id": 14,
+          "question": "what is inheritance ?",
+          "option": [
+            "A",
+            "B"
+          ],
+          "correct_answer": "B"
+        },
+        {
+          "id": 15,
+          "question": "def ? ",
+          "option": [
+            "A",
+            "C"
+          ],
+          "correct_answer": "C",
+          "questionType": "mcq"
+        },
+        {
+          "id": 16,
+          "question": "WAP to print hello world",
+          "option": [
+            "A",
+            "B"
+          ],
+          "correct_answer": "A",
+          "questionType": "programming"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "technology": "react",
+      "data": [
+        {
+          "id": 1,
+          "question": "Which of the following is the correct name of React.js?",
+          "option": [
+            "React",
+            "React.js",
+            "ReactJS",
+            "All of the Above"
+          ],
+          "correct_answer": "All of the Above"
+        },
+        {
+          "id": 2,
+          "question": "Which of the following are the advantages of React.js?",
+          "option": [
+            "React.js can increase the application's performance with Virtual DOM.",
+            "React.js is easy to integrate with other frameworks such as Angular, BackboneJS since it is only a view library.",
+            "React.js can render both on client and server side.",
+            "All of the Above"
+          ],
+          "correct_answer": "All of the Above"
+        },
+        {
+          "id": 3,
+          "question": "Which of the following command is used to install create-react-app?",
+          "option": [
+            "npm install -g create-react-app",
+            "npm install create-react-app",
+            "npm install -f create-react-app",
+            "install -g create-react-app"
+          ],
+          "correct_answer": "npm install -g create-react-app"
+        },
+        {
+          "id": 4,
+          "question": "What of the following is used in React.js to increase performance?",
+          "option": [
+            "Original DOM",
+            "Virtual DOM",
+            "Both A & B",
+            "none of these"
+          ],
+          "correct_answer": "virtual DOM"
+        },
+        {
+          "id": 5,
+          "question": "A class is a type of function, but instead of using the keyword function to initiate it, which keyword do we use?",
+          "option": [
+            "Constructor",
+            "Class",
+            "Object",
+            "DataObject"
+          ],
+          "correct_answer": "Class"
+        },
+        {
+          "id": 6,
+          "question": "Which of the following acts as the input of a class-based component?",
+          "option": [
+            "Class",
+            "Factory",
+            "Render",
+            "Props"
+          ],
+          "correct_answer": "Props"
+        },
+        {
+          "id": 7,
+          "question": "Which of the following keyword is used to create a class inheritance?",
+          "option": [
+            "Create",
+            "Inherits",
+            "Extends",
+            "This"
+          ],
+          "correct_answer": "Extends"
+        },
+        {
+          "id": 8,
+          "question": "What is the default port where webpack-server runs?",
+          "option": [
+            "3000",
+            "3030",
+            "8080",
+            "6060"
+          ],
+          "correct_answer": "8080"
+        },
+        {
+          "id": 9,
+          "question": "How many numbers of elements a valid react component can return?",
+          "option": [
+            "1",
+            "2",
+            "4",
+            "5"
+          ],
+          "correct_answer": "1"
+        },
+        {
+          "id": 10,
+          "question": "What is the declarative way to render a dynamic list of components based on values in an array?",
+          "option": [
+            "Using the reduce array method",
+            "Using the <Each /> component",
+            "Using the Array.map() method",
+            "With a for/while loop"
+          ],
+          "correct_answer": "Using the Array.map() method"
+        },
+        {
+          "id": 11,
+          "question": "What is a state in React?",
+          "option": [
+            "A permanent storage.",
+            "Internal storage of the component.",
+            "External storage of the component.",
+            "None of the above."
+          ],
+          "correct_answer": "Internal storage of the component."
+        },
+        {
+          "id": 12,
+          "question": "What is a state in React?",
+          "option": [
+            "A permanent storage.",
+            "Internal storage of the component.",
+            "External storage of the component.",
+            "None of the above."
+          ],
+          "correct_answer": "Internal storage of the component."
+        },
+        {
+          "id": 13,
+          "question": "What are the two ways to handle data in React?",
+          "option": [
+            "State & Props",
+            "Services & Components",
+            "State & Services",
+            "State & Component"
+          ],
+          "correct_answer": "State & Props"
+        },
+        {
+          "id": 14,
+          "question": "Which of the following is a must API for every React.js component?",
+          "option": [
+            "SetinitialComponent",
+            "renderComponent",
+            "render",
+            "All of the Above"
+          ],
+          "correct_answer": "renderComponent"
+        },
+        {
+          "id": 15,
+          "question": "Which of the following option is correct in the case of the Babel?",
+          "option": [
+            "Babel is a Compiler.",
+            "Babel is a Transpilar.",
+            "None of the above.",
+            "Both A & B are correct"
+          ],
+          "correct_answer": "Both A & B are correct"
+        },
+        {
+          "id": 16,
+          "question": "Which of the following function is used to change the state of the React.js component?",
+          "option": [
+            "this.setState",
+            "this.setChangeState",
+            "this.State{}",
+            "None of the above."
+          ],
+          "correct_answer": "this.setState"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "technology": "java",
+      "data": [
+        {
+          "id": 1,
+          "question": "Which of the following option leads to the portability and security of Java?",
+          "option": [
+            "Bytecode is executed by JVM",
+            "The applet makes the Java code secure and portable",
+            "Use of exception handling",
+            "Dynamic binding between objects"
+          ],
+          "correct_answer": "Bytecode is executed by JVM"
+        },
+        {
+          "id": 2,
+          "question": "Which of the following is not a Java features?",
+          "option": [
+            "Dynamic",
+            "Architecture Neutral",
+            "Use of pointers",
+            "Object-oriented"
+          ],
+          "correct_answer": "Use of pointers"
+        },
+        {
+          "id": 3,
+          "question": "The ! article referred to as a",
+          "option": [
+            "Unicode escape sequence",
+            "Octal escape",
+            "Hexadecimal",
+            "Line feed"
+          ],
+          "correct_answer": "Unicode escape sequence"
+        },
+        {
+          "id": 4,
+          "question": "_____ is used to find and fix bugs in the Java programs.",
+          "option": [
+            "JVM",
+            "JRE",
+            "JDK",
+            "JDB"
+          ],
+          "correct_answer": "JDB"
+        },
+        {
+          "id": 5,
+          "question": "Which of the following option leads to the portability and security of Java?",
+          "option": [
+            "Bytecode is executed by JVM",
+            "The applet makes the Java code secure and portable",
+            "Use of exception handling",
+            "Dynamic binding between objects"
+          ],
+          "correct_answer": "Bytecode is executed by JVM"
+        },
+        {
+          "id": 6,
+          "question": "Which of the following is a valid declaration of a char?",
+          "option": [
+            "char ch = utea",
+            "char ca = 'tea';",
+            "char cr = ȣ",
+            "char cc = itea"
+          ],
+          "correct_answer": "char ch = 'utea';"
+        },
+        {
+          "id": 7,
+          "question": "What is the return type of the hashCode() method in the Object class?",
+          "option": [
+            "Object",
+            "int",
+            "long",
+            "void"
+          ],
+          "correct_answer": "int"
+        },
+        {
+          "id": 8,
+          "question": "Which of the following is a valid long literal?",
+          "option": [
+            "ABH8097",
+            "L990023",
+            "904423",
+            "0xnf029L"
+          ],
+          "correct_answer": "0xnf029L"
+        },
+        {
+          "id": 9,
+          "question": "What does the expression float a = 35 / 0 return?",
+          "option": [
+            "0",
+            "Not a number",
+            "Infinity",
+            "Run time Exception"
+          ],
+          "correct_answer": "Infinity"
+        },
+        {
+          "id": 10,
+          "question": "Evaluate the following Java expression, if x=3, y=5, and z=10:++z + y - y + z + x++",
+          "option": [
+            "24",
+            "23",
+            "20",
+            "25"
+          ],
+          "correct_answer": "25"
+        },
+        {
+          "id": 11,
+          "question": "Which of the following tool is used to generate API documentation in HTML format from doc comments in source code?",
+          "option": [
+            "javap tool",
+            "javaw command",
+            "Javadoc tool",
+            "javah command"
+          ],
+          "correct_answer": "Javadoc tool"
+        },
+        {
+          "id": 12,
+          "question": "Which of the following option leads to the portability and security of Java?",
+          "option": [
+            "Bytecode is executed by JVM",
+            "The applet makes the Java code secure and portable",
+            "Use of exception handling",
+            "Dynamic binding between objects"
+          ],
+          "correct_answer": "Bytecode is executed by JVM"
+        },
+        {
+          "id": 13,
+          "question": "Which of the following creates a List of 3 visible items and multiple selections abled?",
+          "option": [
+            "new List(false, 3)",
+            "new List(3, true)",
+            "new List(true, 3)",
+            "new List(3, false)"
+          ],
+          "correct_answer": "new List(true, 3)"
+        },
+        {
+          "id": 14,
+          "question": "Which of the following for loop declaration is not valid?",
+          "option": [
+            "for ( int i = 99; i >= 0; i / 9 )",
+            "for ( int i = 7; i <= 77; i += 7 )",
+            "for ( int i = 20; i >= 2; - -i )",
+            "for ( int i = 2; i <= 20; i = 2* i )"
+          ],
+          "correct_answer": "for ( int i = 99; i >= 0; i / 9 )"
+        },
+        {
+          "id": 15,
+          "question": "In which process, a local variable has the same name as one of the instance variables?",
+          "option": [
+            "Serialization",
+            "Variable Shadowing",
+            "Abstraction",
+            "Multi-threading"
+          ],
+          "correct_answer": "Variable Shadowing"
+        },
+        {
+          "id": 4,
+          "question": "what is class ?",
+          "option": [
+            "A",
+            "B"
+          ],
+          "correct_answer": "A"
+        },
+        {
+          "id": 5,
+          "question": "program",
+          "option": [
+            "A",
+            "B"
+          ],
+          "correct_answer": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "technology": "php",
+      "data": [
+        {
+          "id": 1,
+          "question": "PHP stands for -",
+          "option": [
+            "Hypertext Preprocessor",
+            "Pretext Hypertext Preprocessor",
+            "Personal Home Processor",
+            "None of the above"
+          ],
+          "correct_answer": "Hypertext Preprocessor"
+        },
+        {
+          "id": 2,
+          "question": "Who is known as the father of PHP?",
+          "option": [
+            "Drek Kolkevi",
+            "List Barely",
+            "Rasmus Lerdrof",
+            "None of the above"
+          ],
+          "correct_answer": "Rasmus Lerdrof"
+        },
+        {
+          "id": 3,
+          "question": "Variable name in PHP starts with -",
+          "option": [
+            "! (Exclamation)",
+            "$ (Dollar)",
+            "& (Ampersand)",
+            "# (Hash)"
+          ],
+          "correct_answer": "$ (Dollar)"
+        },
+        {
+          "id": 4,
+          "question": "Which of the following is the default file extension of PHP?",
+          "option": [
+            ".php",
+            ".hphp",
+            ".xml",
+            ".html"
+          ],
+          "correct_answer": ".php"
+        },
+        {
+          "id": 5,
+          "question": "Which of the following is not a variable scope in PHP?",
+          "option": [
+            "Extern",
+            "Local",
+            "Static",
+            "Global"
+          ],
+          "correct_answer": "Extern"
+        },
+        {
+          "id": 6,
+          "question": "Which of the following is correct to add a comment in php?",
+          "option": [
+            "& …… &",
+            "// ……",
+            "/* …… */",
+            "Both (b) and (c)"
+          ],
+          "correct_answer": "Both (b) and (c)"
+        },
+        {
+          "id": 7,
+          "question": "Which of the following is used to display the output in PHP?",
+          "option": [
+            "echo",
+            "write",
+            "print",
+            "Both (a) and (c)"
+          ],
+          "correct_answer": "Both (a) and (c)"
+        },
+        {
+          "id": 8,
+          "question": "Which of the following is the use of strlen() function in PHP?-",
+          "option": [
+            "The strlen() function returns the type of string",
+            "The strlen() function returns the length of string",
+            "The strlen() function returns the value of string",
+            "The strlen() function returns both value and type of string"
+          ],
+          "correct_answer": "The strlen() function returns the length of string"
+        },
+        {
+          "id": 9,
+          "question": "Which of the following is used for concatenation in PHP?",
+          "option": [
+            "+ (plus)",
+            "* (Asterisk)",
+            ". (dot)",
+            "append()"
+          ],
+          "correct_answer": ". (dot)"
+        },
+        {
+          "id": 10,
+          "question": "Which of the following starts with __ (double underscore) in PHP?",
+          "option": [
+            "Inbuilt constants",
+            "User-defined constants",
+            "Magic constants",
+            "Default constants"
+          ],
+          "correct_answer": "Magic constants"
+        },
+        {
+          "id": 11,
+          "question": "Which of the following is the use of strpos() function in PHP?",
+          "option": [
+            "The strpos() function is used to search for the spaces in a string",
+            "The strpos() function is used to search for a number in a string",
+            "The strpos() function is used to search for a character/text in a string",
+            "The strpos() function is used to search for a capitalize character in a string"
+          ],
+          "correct_answer": "The strpos() function is used to search for a character/text in a string"
+        },
+        {
+          "id": 12,
+          "question": "What does PEAR stands for ?",
+          "option": [
+            "PHP extension and application repository",
+            "PHP enhancement and application reduce",
+            "PHP event and application repository",
+            "None of the above"
+          ],
+          "correct_answer": "PHP extension and application repository"
+        },
+        {
+          "id": 13,
+          "question": "Which of the following is the correct way to create a function in PHP?",
+          "option": [
+            "Create myFunction()",
+            "New_function myFunction()",
+            "function myFunction()",
+            "None of the above"
+          ],
+          "correct_answer": "function myFunction()"
+        },
+        {
+          "id": 14,
+          "question": "Which of the following PHP function is used to generate unique id?",
+          "option": [
+            "id()",
+            "mdid()",
+            "uniqueid()",
+            "None of the above"
+          ],
+          "correct_answer": "uniqueid()"
+        },
+        {
+          "id": 15,
+          "question": "Which of the following is the correct way of defining a variable in PHP?",
+          "option": [
+            "$variable name = value;",
+            "$variable_name = value;",
+            "$variable_name = value",
+            "$variable name as value;"
+          ],
+          "correct_answer": "$variable_name = value;"
+        }
+      ]
+    }
+  ]
+}

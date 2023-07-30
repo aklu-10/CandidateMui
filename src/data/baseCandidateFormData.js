@@ -6,7 +6,7 @@ export const baseCandidateFormData =
         is_for_agent_panel: true,
         is_mcq: true,
         no_of_predefined_questions: 0,
-        total_no_question: 0,
+        total_no_question: '',
         predefined_questions: 
         {
             no_of_predefined_questions: '',
@@ -15,14 +15,16 @@ export const baseCandidateFormData =
         },
         random_questions:
         {
-            no_of_random_question: 0,
+            no_of_random_question: '',
             technologies:
             [
                 {
-                    technology_key: "python-key",
+                    technology_key: "",
                     question_type_details:
                     {
-                        mcq: 0
+                        mcq: null,
+                        programming: null,
+                        descriptive: null
                     }
                 }
             ]
