@@ -127,7 +127,7 @@ const CandidateTestForm = ({formUpdationKey}) => {
                     }
                 </div>
 
-                <div className='absolute top-[34px] right-[14%]'>
+                <div className='absolute top-[34px] right-[185px]'>
                     {
                         formUpdationKey === "form1" 
                         

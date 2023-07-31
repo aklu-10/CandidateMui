@@ -1,7 +1,9 @@
 import CandidateTestForm from './CandidateTestForm';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useRef, memo, createContext, useEffect } from 'react'
 import { baseCandidateFormData } from '../data/baseCandidateFormData';
 import { Button } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const MasterDataContext = createContext({})
 
@@ -9,6 +11,7 @@ const CandidateTestCreation = () => {
 
     console.log("%cCandidate Test Creation","color:red;")
 
+    let toastTimer = useRef({timer:null,run:true});
     //masterData
     const [masterData, setMasterData] = useState({
         hiring_request_id: 57,
@@ -30,8 +33,22 @@ const CandidateTestCreation = () => {
 
     const handleAddNewTestForm = () =>
     {
-        let lastFormKey = (Number(Object.keys(masterData.test_types).slice(-1)[0].slice(-1))+1);
-        setMasterData(pre=>({...pre, test_types: {...pre.test_types, ['form'+lastFormKey]:{...baseCandidateFormData}}}));
+        if(isValidSubmission){
+            let lastFormKey = (Number(Object.keys(masterData.test_types).slice(-1)[0].slice(-1))+1);
+            setMasterData(pre=>({...pre, test_types: {...pre.test_types, ['form'+lastFormKey]:{...baseCandidateFormData}}}));
+        }
+        else
+        {
+            if(toastTimer.current.run){
+                toast.error("Please fill the requied fields")
+                toastTimer.current.run=false;
+            }
+            clearTimeout(toastTimer.current.timer);
+            toastTimer.current.timer = setTimeout(()=>
+            {
+                toastTimer.current.run = true;
+            },1000)
+        }
     }
 
     const handleDeleteTestForm = (formKey) =>
@@ -51,18 +68,25 @@ const CandidateTestCreation = () => {
             if(test_name && test_type_key && (Number(total_no_question) > 0 ) && (Number(no_of_predefined_questions) >= 0 ) && (Number(no_of_random_question) >= 0 ) && ( (Number(no_of_predefined_questions) + Number(no_of_random_question)) <= Number(total_no_question) ) )
             {
 
-            
-                if(Number(no_of_predefined_questions) === Number(total_no_question))
+    
+                if(Number(no_of_predefined_questions) === Number(total_no_question)){
                     checkRandom=false;
-                else
+                }
+                else{
+
                     checkRandom=true;
+                }
             
 
-                if(Number(no_of_random_question) === Number(total_no_question))
+                if(Number(no_of_random_question) === Number(total_no_question)){
                     checkPredefined=false;
+                }
                 else
                     checkPredefined=true;
-            
+                
+                console.log(no_of_predefined_questions, no_of_random_question, total_no_question, checkRandom, checkPredefined)
+                
+                console.log(masterData.test_types)
 
                 if(checkRandom)
                 {
@@ -112,6 +136,10 @@ const CandidateTestCreation = () => {
                         setIsValidSubmission(false)
                         return;
                     }
+                    else{
+                        setIsValidSubmission(true)
+                        return;
+                    }
                 }
 
 
@@ -125,6 +153,12 @@ const CandidateTestCreation = () => {
     },[masterData])
 
     return (
+
+        <>
+
+            <ToastContainer position='bottom-right'/>
+
+
         <MasterDataContext.Provider value={{masterData, setMasterData, handleAddNewTestForm, handleDeleteTestForm}}>
             <div>
             {
@@ -145,6 +179,8 @@ const CandidateTestCreation = () => {
 
             </div>
         </MasterDataContext.Provider>
+    </>
+
     )
 }
 
