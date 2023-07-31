@@ -98,7 +98,7 @@ const PredefinedQuestion = () => {
             questionTitle:element.question,
             questionLevel:1,
             technology:name[0].toUpperCase()+name.slice(1,),
-            questionType:'Mcq'
+            questionType: element.questionType === undefined ? 'mcq' : element.questionType 
           }
 
         })
@@ -106,6 +106,9 @@ const PredefinedQuestion = () => {
       })
 
       let allData = res.reduce((acc, item)=>acc=[...acc, ...item],[]);
+
+      typeArr = typeArr.map(tech=>tech.toLowerCase());
+      allData = (allData.filter(data=>typeArr.includes(data.questionType)))
 
       setTableRows(allData.reverse());
 
@@ -156,10 +159,11 @@ const PredefinedQuestion = () => {
           let name = data[randomIndex].technology
           let res = data[randomIndex].data.slice(0,Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions));
           let allIds = [];
-          setTableRows(res.map((element, index)=>{
-            allIds = [...allIds, index]
+          let i=0;
+          setTableRows(res.map((element)=>{
+            allIds = [...allIds, i]
             return {
-              id: index,
+              id: ++i,
               questionTitle:element.question,
               questionLevel:1,
               technology:name,

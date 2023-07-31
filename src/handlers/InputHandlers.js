@@ -35,8 +35,9 @@ export const handleInputChange = (e, {validation, setValidation, setMasterData, 
             }
             else if(keys.includes("no_of_predefined_questions"))
             {
-                setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}, random_questions: { ...prev.test_types[formUpdationKey].random_questions, no_of_random_question: Number(masterData.test_types[formUpdationKey].total_no_question) - Number(e.target.value) }}}}));
-                return;
+                if(Number(e.target.value)){
+                    setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}, random_questions: { ...prev.test_types[formUpdationKey].random_questions, no_of_random_question: Number(masterData.test_types[formUpdationKey].total_no_question) - Number(e.target.value) }}}}));
+                }
             }
 
             setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}}}}));
