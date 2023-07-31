@@ -175,6 +175,27 @@
           ],
           "correct_answer": "A",
           "questionType": "programming"
+        },
+        {
+          "id": 17,
+          "question": "asd",
+          "option": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correct_answer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 18,
+          "question": "asd",
+          "option": [
+            ""
+          ],
+          "correct_answer": "",
+          "questionType": "descriptive"
         }
       ]
     },

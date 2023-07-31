@@ -9,16 +9,13 @@ const CandidateTestCreation = () => {
 
     console.log("%cCandidate Test Creation","color:red;")
 
-    //for key
-    let formUid = useRef(1);
-
     //masterData
     const [masterData, setMasterData] = useState({
         hiring_request_id: 57,
         level: 2,
         hiring_technologies: ['python-key', 'java-spring'],
         test_types: { 
-            ['form'+formUid.current]: {...baseCandidateFormData}
+            form1: {...baseCandidateFormData}
         }
     });
 
@@ -30,56 +27,96 @@ const CandidateTestCreation = () => {
 
     const [isValidSubmission, setIsValidSubmission] = useState(false);
 
+
+    const handleAddNewTestForm = () =>
+    {
+        let lastFormKey = (Number(Object.keys(masterData.test_types).slice(-1)[0].slice(-1))+1);
+        setMasterData(pre=>({...pre, test_types: {...pre.test_types, ['form'+lastFormKey]:{...baseCandidateFormData}}}));
+    }
+
+    const handleDeleteTestForm = (formKey) =>
+    {
+        let copyMasterTests = {...masterData.test_types};
+        delete copyMasterTests[formKey];
+        setMasterData(pre=>({...pre, test_types:copyMasterTests}));
+    }
+
     useEffect(()=>
     {
+        let checkPredefined = false, checkRandom = false;
+
         Object.keys(masterData.test_types).map(form=>{
             let {test_name, test_type_key, total_no_question, predefined_questions:{no_of_predefined_questions}, random_questions:{no_of_random_question}} = masterData.test_types[form];
 
-            if(test_name && test_type_key && (Number(total_no_question) > 0 ) && (Number(no_of_predefined_questions) > 0 ) && (Number(no_of_random_question) > 0 ) && ( (Number(no_of_predefined_questions) + Number(no_of_random_question)) <= Number(total_no_question) ) )
+            if(test_name && test_type_key && (Number(total_no_question) > 0 ) && (Number(no_of_predefined_questions) >= 0 ) && (Number(no_of_random_question) >= 0 ) && ( (Number(no_of_predefined_questions) + Number(no_of_random_question)) <= Number(total_no_question) ) )
             {
-                let sumOfAllQuestionDetails;
 
-                if(masterData.test_types[form].is_for_agent_panel === "true")
-                {
-                    sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
-                    {
-                        return acc + Number(item.question_type_details.mcq);
-    
-                    },0) 
-                }
+            
+                if(Number(no_of_predefined_questions) === Number(total_no_question))
+                    checkRandom=false;
                 else
+                    checkRandom=true;
+            
+
+                if(Number(no_of_random_question) === Number(total_no_question))
+                    checkPredefined=false;
+                else
+                    checkPredefined=true;
+            
+
+                if(checkRandom)
                 {
-                    if(masterData.test_types[form].is_mcq)
+                    let sumOfAllQuestionDetails;
+    
+                    if(masterData.test_types[form].is_for_agent_panel === "true")
                     {
                         sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
                         {
                             return acc + Number(item.question_type_details.mcq);
         
-                        },0)
+                        },0) 
                     }
                     else
                     {
-                        sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
+                        if(masterData.test_types[form].is_mcq)
                         {
-                            return acc + Number(item.question_type_details.programming) + Number(item.question_type_details.descriptive);
-        
-                        },0)
+                            sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
+                            {
+                                return acc + Number(item.question_type_details.mcq);
+            
+                            },0)
+                        }
+                        else
+                        {
+                            sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
+                            {
+                                return acc + Number(item.question_type_details.programming) + Number(item.question_type_details.descriptive);
+            
+                            },0)
+                        }
+                    }
+                    
+                    if(sumOfAllQuestionDetails !== Number(no_of_random_question)){
+                        setIsValidSubmission(false)
+                        return;
+                    }
+
+                    if(sumOfAllQuestionDetails!=0 && (Number(no_of_random_question) === Number(total_no_question)))
+                        setIsValidSubmission(true)
+                }
+
+                if(checkPredefined)
+                {
+                    if(masterData.test_types[form].predefined_questions.already_selected_question.length !== Number(no_of_predefined_questions))
+                    {
+                        setIsValidSubmission(false)
+                        return;
                     }
                 }
-                
-                if(sumOfAllQuestionDetails < Number(no_of_random_question)){
-                    setIsValidSubmission(false)
-                    return;
-                }
 
-                if(masterData.test_types[form].predefined_questions.already_selected_question.length !== Number(no_of_predefined_questions))
-                {
-                    setIsValidSubmission(false)
-                    return;
-                }
-                
-                setIsValidSubmission(true);
 
+                if(!(Number(no_of_predefined_questions) === 0 || Number(no_of_random_question) === 0))
+                    setIsValidSubmission(true);
             }
             else
                 setIsValidSubmission(false);
@@ -88,17 +125,17 @@ const CandidateTestCreation = () => {
     },[masterData])
 
     return (
-        <MasterDataContext.Provider value={{masterData, setMasterData}}>
+        <MasterDataContext.Provider value={{masterData, setMasterData, handleAddNewTestForm, handleDeleteTestForm}}>
             <div>
             {
-                Object.keys(masterData.test_types).map(()=>
+                Object.keys(masterData.test_types).map((form)=>
                 (
-                    <CandidateTestForm key={('form'+formUid.current)} formUpdationKey={('form'+formUid.current)}/>
+                    <CandidateTestForm key={form} formUpdationKey={form}/>
                 ))
             }
             
                 <div className='p-2 flex gap-5'>
-                    <Button variant="contained" color='primary' disabled={!isValidSubmission} onClick={handleCandidateFormSubmission}>
+                    <Button variant="contained" color='primary' disabled={!isValidSubmission}  onClick={handleCandidateFormSubmission}>
                         Submit Candidate Test
                     </Button>
                     <Button variant="contained" color='primary' disabled>

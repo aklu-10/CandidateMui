@@ -18,7 +18,7 @@ const RandomQuestion = () => {
         
             <div className='mb-[15px] p-2 flex flex-col'>
                 <Label labelName={"Total Random Questions"} />
-                <TextField id="outlined-basic" min={0} placeholder="Total Random Questions" name='random_questions.no_of_random_question' variant="outlined" size='small' value={masterData.test_types[formUpdationKey].random_questions.no_of_random_question} onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})}/>
+                <TextField id="outlined-basic" min={0} placeholder="Total Random Questions" name='random_questions.no_of_random_question' variant="outlined" size='small' type='number' value={masterData.test_types[formUpdationKey].random_questions.no_of_random_question} onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})}/>
                 {
                     !validation.no_of_random_question.isValid && 
                     <div className='flex flex-row items-center gap-[2px] my-1'>
@@ -27,12 +27,17 @@ const RandomQuestion = () => {
                     </div>
                 }
             </div>
-            <div className='p-2'>
             {
-                validation.no_of_random_question.isValid &&
-                <TechnologyDropdown/>
+
+                (masterData.test_types[formUpdationKey].random_questions.no_of_random_question > 0) &&
+                <div className='p-2'>
+                {
+                    validation.no_of_random_question.isValid &&
+                    <TechnologyDropdown/>
+                }
+                </div>
+
             }
-            </div>
         </>
     )
 }

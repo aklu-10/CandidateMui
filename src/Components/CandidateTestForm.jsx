@@ -1,7 +1,7 @@
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import React, { createContext, memo, useContext, useState, useRef } from 'react'
-import { FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material'
+import { Button, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material'
 import TabSwitch from './TabSwitch';
 import RandomQuestion from './RandomQuestion';
 import PredefinedQuestion from './PredefinedQuestion';
@@ -9,7 +9,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import Label from './Label';
 import { MasterDataContext } from './CandidateTestCreation';
 import { handleInputChange } from '../handlers/InputHandlers';
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Delete } from '@mui/icons-material';
 
 export const ValidationContext = createContext({});
 
@@ -17,7 +18,7 @@ const CandidateTestForm = ({formUpdationKey}) => {
 
     console.log("%cCandidate Test Form","color:red;")
 
-    const {masterData, setMasterData} = useContext(MasterDataContext)
+    const {masterData, setMasterData, handleAddNewTestForm, handleDeleteTestForm} = useContext(MasterDataContext)
 
     
     let technologies = [
@@ -107,32 +108,56 @@ const CandidateTestForm = ({formUpdationKey}) => {
         setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [fieldName]: selectedValue.value}}}));
     }
 
+
     return (
         
         <ValidationContext.Provider value={{validation, setValidation, formUpdationKey, allTech, setAllTech, tableRows, setTableRows, showAddNewQuestionForm, setShowAddNewQuestionForm, fetchRows, showAddTechnologyButton, setShowAddTechnologyButton}}>
             
             {/* Test Name */}
-            <div className='mb-[15px] p-2 flex flex-col rounded'>
-                <Label labelName={"Test Name"}/>
-                <TextField id="outlined-basic" value={masterData.test_types[formUpdationKey].test_name} variant="outlined" size='small' name='test_name' onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})}/>
-                {
-                    !validation.test_name.isValid && 
-                    <div className='flex flex-row items-center gap-[2px] my-1'>
-                        <InfoIcon color='error' style={{fontSize:'1.4rem'}}/>
-                        <span className='text-red-500'>{validation.test_name.errMsg}</span>
+            <div className='mb-[15px] p-2 flex flex-row items-center relative'>
+                <div className='flex flex-col rounded w-[80%]'>
+                    <Label labelName={"Test Name"}/>
+                    <TextField id="outlined-basic" value={masterData.test_types[formUpdationKey].test_name} variant="outlined" size='small' name='test_name' onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})}/>
+                    {
+                        !validation.test_name.isValid && 
+                        <div className='flex flex-row items-center gap-[2px] my-1'>
+                            <InfoIcon color='error' style={{fontSize:'1.4rem'}}/>
+                            <span className='text-red-500'>{validation.test_name.errMsg}</span>
+                        </div>
+                    }
+                </div>
+
+                <div className='absolute top-[34px] right-[14%]'>
+                    {
+                        formUpdationKey === "form1" 
+                        
+                        ?
+
+                        <Button variant="contained" onClick={handleAddNewTestForm}>
+                            <AddCircleOutlineIcon className='text-white-700'/>
+                        </Button>
+                        
+                        :
+                        
+                        <Button variant="contained" onClick={()=>handleDeleteTestForm(formUpdationKey)}>
+                            <Delete className='text-white-700'/>
+                        </Button>
+                        
+
+                    }
                     </div>
-                }
             </div>
 
             {/* Test Type */}
-            <div className='mb-[15px] p-2'>
+            <div className='mb-[15px] p-2 w-[80%]'>
                 <Label labelName={"Select Test Type, or add new test type"}/>
                 <CreatableSelect isClearable options={testTypeOptions} defaultValue={masterData.test_types[formUpdationKey].test_type_key} onChange={(value)=>handleCreatableSelectChange("test_type_key", value)}/>
             </div>
 
             {/* Managed By */}
-            <div className='mb-[15px] p-2'>
-                <div>
+            <div className='mb-[15px] p-2 flex flex-row'>
+             
+                <div className='w-[80%]'>
                     <Label labelName={"Managed By"}/>
                     <Select
                         defaultValue={{label:`${masterData.test_types[formUpdationKey].is_for_agent_panel ? "Agent" : "Candidate"}`, value:masterData.test_types[formUpdationKey].is_for_agent_panel}}
@@ -141,7 +166,7 @@ const CandidateTestForm = ({formUpdationKey}) => {
                     />
                 </div>
 
-                <div>
+                <div className='pl-[10px]'>
                     <Label labelName={"Is Mcq"}/>
                     <RadioGroup
                         row
@@ -167,7 +192,7 @@ const CandidateTestForm = ({formUpdationKey}) => {
             </div>
 
             {/* Screening Type */}
-            <div className='mb-[15px] p-2'>
+            <div className='mb-[15px] p-2 w-[80%]'>
                 <Label labelName={"Screening Type"}/>
                 <Select
                     defaultValue={{label:`${masterData.test_types[formUpdationKey].is_screening_test===0 ? 'Pre Interview' : 'Post Interview'}`, value:masterData.test_types[formUpdationKey].is_screening_test}}
@@ -177,7 +202,7 @@ const CandidateTestForm = ({formUpdationKey}) => {
             </div>
 
             {/* Total Questions */}
-            <div className='mb-[15px] p-2 flex flex-col'>
+            <div className='mb-[15px] p-2 flex flex-col w-[80%]'>
                 <Label labelName={"Total Number Of Questions"}/>
                 <TextField id="outlined-basic" type='number'placeholder='Total Number of Questions' size='small' variant="outlined" name='total_no_question' value={masterData.test_types[formUpdationKey].total_no_question} onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})}/>
                 {

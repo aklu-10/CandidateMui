@@ -49,8 +49,13 @@ const handleDeleteOption = (optionField) =>
 
 const handleSaveForm = () =>
 {
+  if(addNewQuestionState.questionType === 'mcq')
+  {
+    if(!((Object.keys(addNewQuestionState.options).length > 1) && (Object.keys(addNewQuestionState.options).filter(option=>addNewQuestionState.options[option].trim().length!=0).length === Object.keys(addNewQuestionState.options).length) && addNewQuestionState.correctAnswer) )
+      return;
+  }
   
-  if(addNewQuestionState.technology && addNewQuestionState.questionType && addNewQuestionState.questionTitle && addNewQuestionState.correctAnswer && (Object.keys(addNewQuestionState.options).length > 1) && (Object.keys(addNewQuestionState.options).filter(option=>addNewQuestionState.options[option].trim().length!=0).length === Object.keys(addNewQuestionState.options).length) )
+  if(addNewQuestionState.technology && addNewQuestionState.questionType && addNewQuestionState.questionTitle)
   {
     let ids = { Python:1, react:2, java:3, php:4 };
     axios.get("http://localhost:8080/technologyQuestions/"+ids[addNewQuestionState.technology])
@@ -126,37 +131,47 @@ const handleSaveAndCreateForm = () =>
       </div>
 
       <div className='mb-[15px] p-2'>
-          <Button variant="contained" color='success' startIcon={<AddCircleOutlineIcon />} onClick={handleAddNewOption}>
-            Add Options
-          </Button>
-
+        
         <div>
+        {
+          addNewQuestionState.questionType === 'mcq' &&
+          <>
+            <Button variant="contained" color='success' startIcon={<AddCircleOutlineIcon />} onClick={handleAddNewOption}>
+              Add Options
+            </Button>
 
-            {
-                Object.keys(addNewQuestionState.options).map((option, index)=>(
+            <div>
 
-                    <div className='flex items-center' key={option}>
-                        <div className='mb-[15px] p-2 flex flex-col '>
-                        <Label labelName={"Answer Option ("+ (index +1) +")"}/>
-                        <TextField id="outlined-basic"  variant="outlined" size='small' name={option} onChange={(e)=>setAddNewQuestionState((pre)=>({...pre, options:{...pre.options, [option]:e.target.value }}))}/>
+                {
+                    Object.keys(addNewQuestionState.options).map((option, index)=>(
+
+                        <div className='flex items-center' key={option}>
+                            <div className='mb-[15px] p-2 flex flex-col '>
+                            <Label labelName={"Answer Option ("+ (index +1) +")"}/>
+                            <TextField id="outlined-basic"  variant="outlined" size='small' name={option} onChange={(e)=>setAddNewQuestionState((pre)=>({...pre, options:{...pre.options, [option]:e.target.value }}))}/>
+                            </div>
+                        
+                            <div className='mb-[15px] p-2 pl-[20px] flex flex-col'>
+                                <Label labelName={"Is Correct"}/>
+                                <input className='text-xl' type='radio' name='correctAnswer' value={addNewQuestionState.options[option]}
+                                onChange={(e)=>setAddNewQuestionState((pre)=>({...pre, correctAnswer:e.target.value }))}
+                                />
+                            </div>
+
+                            <IconButton color='error' onClick={()=>handleDeleteOption(option)}>
+                              <DeleteIcon />
+                            </IconButton>
                         </div>
-                    
-                        <div className='mb-[15px] p-2 pl-[20px] flex flex-col'>
-                            <Label labelName={"Is Correct"}/>
-                            <input className='text-xl' type='radio' name='correctAnswer' value={addNewQuestionState.options[option]}
-                            onChange={(e)=>setAddNewQuestionState((pre)=>({...pre, correctAnswer:e.target.value }))}
-                            />
-                        </div>
 
-                        <IconButton color='error' onClick={()=>handleDeleteOption(option)}>
-                          <DeleteIcon />
-                        </IconButton>
-                    </div>
+                    ))
+                }  
 
-                ))
-            }  
+              
+            </div>
+          </>
+          
+        }
 
-           
         </div>
 
 

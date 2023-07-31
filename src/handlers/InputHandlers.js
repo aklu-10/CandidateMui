@@ -26,7 +26,8 @@ export const handleInputChange = (e, {validation, setValidation, setMasterData, 
                 setValidation((prev)=>({...prev, [keys[1]]: {...prev[keys[1]], isValid:true }}))
             else
                 setValidation((prev)=>({...prev, [keys[1]]: {...prev[keys[1]], isValid:false }}))
-            
+
+                
             if(keys.includes("no_of_random_question"))
             {
                 setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}, predefined_questions: { ...prev.test_types[formUpdationKey].predefined_questions, no_of_predefined_questions: Number(masterData.test_types[formUpdationKey].total_no_question) - Number(e.target.value) }}}}));
@@ -34,15 +35,12 @@ export const handleInputChange = (e, {validation, setValidation, setMasterData, 
             }
             else if(keys.includes("no_of_predefined_questions"))
             {
-                if(e.target.value){
-                    setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}, random_questions: { ...prev.test_types[formUpdationKey].random_questions, no_of_random_question: Number(masterData.test_types[formUpdationKey].total_no_question) - Number(e.target.value) }}}}));
-                    return;
-                }
+                setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}, random_questions: { ...prev.test_types[formUpdationKey].random_questions, no_of_random_question: Number(masterData.test_types[formUpdationKey].total_no_question) - Number(e.target.value) }}}}));
+                return;
             }
 
             setMasterData(prev=>({...prev, test_types:{...prev.test_types,  [formUpdationKey]:{...prev.test_types[formUpdationKey], [keys[0]]:{...prev.test_types[formUpdationKey][keys[0]], [keys[1]]:e.target.value}}}}));
 
-         
         }
         else if(keys.length === 3)
         {

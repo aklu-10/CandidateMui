@@ -91,7 +91,7 @@ const TechnologyDropdown = () => {
 
     return (
         
-        <div className='flex items-start gap-5' >
+        <div className='flex items-start gap-5 relative' >
             
             <div className='flex flex-col'>
             {
@@ -121,12 +121,14 @@ const TechnologyDropdown = () => {
             }
             </div>
             
-            {
-                showAddTechnologyButton &&
-                <Button variant="contained" color='primary' onClick={addNewTech} >
-                    Add Technology
-                </Button>
-            }
+            <div className='absolute top-0 left-80'>
+                {
+                    showAddTechnologyButton &&
+                    <Button variant="contained" color='primary' onClick={addNewTech} >
+                        Add Technology
+                    </Button>
+                }
+            </div>
 
         </div>
 

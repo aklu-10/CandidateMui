@@ -9,13 +9,13 @@ export const baseCandidateFormData =
         total_no_question: '',
         predefined_questions: 
         {
-            no_of_predefined_questions: '',
+            no_of_predefined_questions: 0,
             already_selected_question: [],
             newly_created_questions: []
         },
         random_questions:
         {
-            no_of_random_question: '',
+            no_of_random_question: 0,
             technologies:
             [
                 {

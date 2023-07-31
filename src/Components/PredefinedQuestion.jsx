@@ -49,8 +49,13 @@ const columns = [
 
 const PredefinedQuestion = () => {
 
+
   const {masterData, setMasterData} = useContext(MasterDataContext);
+
   const {formUpdationKey, validation, setValidation, tableRows, setTableRows, setShowAddNewQuestionForm, showAddNewQuestionForm, fetchRows} = useContext(ValidationContext);
+  
+  
+
   const [selectedTechAndType, setSelectedTechAndType] = useState({technology:[],questionType:[]});
 
   if(!validation.no_of_random_question.isValid) return;
@@ -75,9 +80,7 @@ const PredefinedQuestion = () => {
     let typeArr = questionType.map(element=>element.value);
 
     if(!(techArr.length && typeArr.length))
-    {
       return;
-    }
 
     let url = `http://localhost:8080/technologyQuestions?`;
     techArr.map(tech=>url+='technology='+tech+'&')
@@ -85,12 +88,13 @@ const PredefinedQuestion = () => {
     axios.get(url)
     .then(({data})=>
     {
+      let i=-1;
       let res = data.map(({data:questionArr, technology})=>{
         let name = technology;
-        return questionArr.map((element, index)=>
+        return questionArr.map((element)=>
         {
           return {
-            id: index+1,
+            id: ++i,
             questionTitle:element.question,
             questionLevel:1,
             technology:name[0].toUpperCase()+name.slice(1,),
@@ -134,7 +138,7 @@ const PredefinedQuestion = () => {
 
   const handleClear = () =>
   {
-    setSelectedTechAndType((prev)=>({technology:[], questionType:[]}));
+    setSelectedTechAndType({technology:[], questionType:[]});
     setTableRows([]);
     setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[] }}}}));
     
@@ -177,7 +181,7 @@ const PredefinedQuestion = () => {
       
       {/* Field 3 */}
       <div className='mb-[15px] p-2'>
-        <TextField id="outlined-basic" label="Total Predefined Questions" variant="outlined" name='predefined_questions.no_of_predefined_questions' value={masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions} onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})} />
+        <TextField id="outlined-basic" label="Total Predefined Questions" variant="outlined" name='predefined_questions.no_of_predefined_questions' type='number' value={masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions} onChange={(e)=>handleInputChange(e,{validation,  setValidation, setMasterData, formUpdationKey, masterData})} />
         {
             !validation.no_of_predefined_questions.isValid && 
             <div className='flex flex-row items-center gap-[2px] my-1'>
@@ -186,68 +190,75 @@ const PredefinedQuestion = () => {
             </div>
         }
       </div>
-
-      {/* Field 2 - tech multi, type multi, search, clear, add */}
-      <div className='flex items-center justify-between'>
-        <div className='mb-[15px] p-2 w-[32%]'>
-          <Label labelName={"Select Technology"}/>
-          <CreatableSelect isMulti options={technologies} value={selectedTechAndType.technology} onChange={(value)=>setSelectedTechAndType((prev)=>({...prev, technology:value}))}/>
-        </div>
-      
-      
-        <div className='mb-[15px] p-2 w-[32%]'>
-          <Label labelName={"Select Question Type"}/>
-          <CreatableSelect isMulti options={[{label:'Mcq', value:'Mcq'},{label:'Programming', value:'Programming'},{label:'Descriptive', value:'Descriptive'}]} value={selectedTechAndType.questionType} onChange={(value)=>setSelectedTechAndType((prev)=>({...prev, questionType:value}))} />
-        </div>
-
-        <div className='flex items-center justify-between mt-[24px]'>
-          <div className='mb-[15px] p-2'>
-            <Button variant="contained" startIcon={<SearchIcon />} onClick={handleSearch}>
-              Search
-            </Button>
+        {
+          Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions)!=0 &&
+          (validation.no_of_predefined_questions.isValid) &&
+      <>
+        {/* //Field 2 - tech multi, type multi, search, clear, add */}
+        <div className='flex items-center justify-between relative z-[10]'>
+          <div className='mb-[15px] p-2 w-[32%]'>
+            <Label labelName={"Select Technology"}/>
+            <CreatableSelect isMulti options={technologies} value={selectedTechAndType.technology} onChange={(value)=>setSelectedTechAndType((prev)=>({...prev, technology:value}))}/>
+          </div>
+        
+        
+          <div className='mb-[15px] p-2 w-[32%] relative z-[10]'>
+            <Label labelName={"Select Question Type"}/>
+            <CreatableSelect isMulti options={[{label:'Mcq', value:'Mcq'},{label:'Programming', value:'Programming'},{label:'Descriptive', value:'Descriptive'}]} value={selectedTechAndType.questionType} onChange={(value)=>setSelectedTechAndType((prev)=>({...prev, questionType:value}))} />
           </div>
 
-          <div className='mb-[15px] p-2'>
-            <Button variant="contained" color='error' startIcon={<HighlightOffIcon />} onClick={handleClear}>
-              Clear
-            </Button>
-          </div>
-          
-          <div className='mb-[15px] p-2'>
-            <Button variant="contained" color='success' startIcon={<AddCircleOutlineIcon />} onClick={()=>{setShowAddNewQuestionForm((pre)=>!pre)}}>
-              Add New Question
-            </Button>
+          <div className='flex items-center justify-between mt-[24px]'>
+            <div className='mb-[15px] p-2'>
+              <Button variant="contained" startIcon={<SearchIcon />} onClick={handleSearch}>
+                Search
+              </Button>
+            </div>
+
+            <div className='mb-[15px] p-2'>
+              <Button variant="contained" color='error' startIcon={<HighlightOffIcon />} onClick={handleClear}>
+                Clear
+              </Button>
+            </div>
+            
+            <div className='mb-[15px] p-2 w-[230px]'>
+              <Button variant="contained" color='success' startIcon={<AddCircleOutlineIcon />} onClick={()=>{setShowAddNewQuestionForm((pre)=>!pre)}}>
+                Add New Question
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Table  */}
-      <div className='h-[400px]'>
-        <DataGrid
-          apiRef={handleAutoChecked}
-          rows={tableRows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
+        {/* //Table  */}
+        <div className='h-[400px]'>
+          <DataGrid
+            apiRef={handleAutoChecked}
+            rows={tableRows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          onCellClick={handleCellClick}
-          onRowSelectionModelChange={handleCellClick}
-          disableRowSelectionOnClick
-        />
-      </div>
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            onCellClick={handleCellClick}
+            onRowSelectionModelChange={handleCellClick}
+            disableRowSelectionOnClick
+          />
+        </div>
+        
+        {/* //Add New Question Form */}
+        {
+          showAddNewQuestionForm &&
+        <AddNewQuestion handleSearch={handleSearch}/>
+        }
+      </>
+        }
 
-      {/* Add New Question Form */}
-      {
-        showAddNewQuestionForm &&
-       <AddNewQuestion handleSearch={handleSearch}/>
-      }
 
+        
     </div>
     
   )
