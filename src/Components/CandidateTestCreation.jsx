@@ -60,38 +60,35 @@ const CandidateTestCreation = () => {
 
     useEffect(()=>
     {
+
+        // let allType = Object.keys(masterData.test_types["form1"].random_questions.technologies[0].question_type_details);
+        // console.log(  masterData.test_types["form1"].random_questions.technologies[0].question_type_details[allType[allType.indexOf("something")]]);
+
+
         let checkPredefined = false, checkRandom = false;
 
         Object.keys(masterData.test_types).map(form=>{
+         
             let {test_name, test_type_key, total_no_question, predefined_questions:{no_of_predefined_questions}, random_questions:{no_of_random_question}} = masterData.test_types[form];
 
             if(test_name && test_type_key && (Number(total_no_question) > 0 ) && (Number(no_of_predefined_questions) >= 0 ) && (Number(no_of_random_question) >= 0 ) && ( (Number(no_of_predefined_questions) + Number(no_of_random_question)) <= Number(total_no_question) ) )
             {
 
-    
-                if(Number(no_of_predefined_questions) === Number(total_no_question)){
+                if(Number(no_of_predefined_questions) === Number(total_no_question))
                     checkRandom=false;
-                }
-                else{
-
+                else
                     checkRandom=true;
-                }
             
 
-                if(Number(no_of_random_question) === Number(total_no_question)){
+                if(Number(no_of_random_question) === Number(total_no_question))
                     checkPredefined=false;
-                }
                 else
                     checkPredefined=true;
                 
-                console.log(no_of_predefined_questions, no_of_random_question, total_no_question, checkRandom, checkPredefined)
-                
-                console.log(masterData.test_types)
-
                 if(checkRandom)
                 {
                     let sumOfAllQuestionDetails;
-    
+                    
                     if(masterData.test_types[form].is_for_agent_panel === "true")
                     {
                         sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>

@@ -4,12 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import SaveIcon from '@mui/icons-material/Save';
-import { Button ,IconButton, Radio, TextField  } from '@mui/material'
+import { Button ,IconButton, Radio, TableRow, TextField, formControlClasses  } from '@mui/material'
 import Label from './Label';
 import { useContext } from 'react';
 import { ValidationContext } from './CandidateTestForm';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import axios from 'axios';
+import { MasterDataContext } from './CandidateTestCreation';
 
 let technologies = [
     { label: "Python", value: "Python" },
@@ -18,10 +19,10 @@ let technologies = [
     { label: "Php", value: "php" }
   ];
 
-const AddNewQuestion = ({handleSearch}) => {
+const AddNewQuestion = () => {
 
-  const {setShowAddNewQuestionForm, showAddNewQuestionForm, setTableRows} = useContext(ValidationContext);
-
+  const {setShowAddNewQuestionForm, setTableRows, formUpdationKey, tableRows, setSelectedRows, selectedRows} = useContext(ValidationContext);
+  const {masterData, setMasterData} = useContext(MasterDataContext);
 
     const [addNewQuestionState, setAddNewQuestionState] = useState({
         technology:'',
@@ -37,6 +38,7 @@ const AddNewQuestion = ({handleSearch}) => {
         
         let lastOption = 'option' + (Number(Object.keys(addNewQuestionState.options).slice(-1)[0].slice(-1))+1);
         setAddNewQuestionState(pre=>({...pre, options:{...pre.options, [lastOption]:''}}))
+
     }
 
 const handleDeleteOption = (optionField) =>
@@ -49,6 +51,8 @@ const handleDeleteOption = (optionField) =>
 
 const handleSaveForm = () =>
 {
+  // console.log(masterData.test_types.predefined_questions.newly_created_questions)
+
   if(addNewQuestionState.questionType === 'mcq')
   {
     if(!((Object.keys(addNewQuestionState.options).length > 1) && (Object.keys(addNewQuestionState.options).filter(option=>addNewQuestionState.options[option].trim().length!=0).length === Object.keys(addNewQuestionState.options).length) && addNewQuestionState.correctAnswer) )
@@ -58,35 +62,35 @@ const handleSaveForm = () =>
   if(addNewQuestionState.technology && addNewQuestionState.questionType && addNewQuestionState.questionTitle)
   {
     let ids = { Python:1, react:2, java:3, php:4 };
-    axios.get("http://localhost:8080/technologyQuestions/"+ids[addNewQuestionState.technology])
+    axios.get("http://localhost:5050/technologyQuestions/"+ids[addNewQuestionState.technology])
     .then(({data})=>
     {
       let obj = {...data};
-      let questions = [...obj.data,  {
-        id: Number(obj.data.slice(-1)[0].id)+1,
-        question: addNewQuestionState.questionTitle,
-        option: Object.keys(addNewQuestionState.options).map(option=>addNewQuestionState.options[option]),
-        correct_answer: addNewQuestionState.correctAnswer,
+      let questions = [...obj.data]; 
+      let lastIndex = questions.slice(-1)[0].id+1;
+      let newQuestionToAdd = {
+        id:lastIndex+1,
+        questionTitle:addNewQuestionState.questionTitle,
+        questionLevel:1,
+        technology:addNewQuestionState.technology[0].toUpperCase()+addNewQuestionState.technology.slice(1,),
         questionType:addNewQuestionState.questionType
-      }]; 
+      }
 
-      axios.put("http://localhost:8080/technologyQuestions/"+ids[addNewQuestionState.technology], {...obj, data: questions})
-      .then(({data:{technology, data}})=>
-      {
-        setTableRows(data.reverse().map((element, index)=>(
-          {
-            id: index,
-            questionTitle:element.question,
-            questionLevel:1,
-            technology:technology[0].toUpperCase()+technology.slice(1,),
-            questionType:addNewQuestionState.questionType
-          }
-        )));
+      axios.put("http://localhost:5050/technologyQuestions/"+ids[addNewQuestionState.technology], {...obj, data: [...questions, {id:newQuestionToAdd.id, question:newQuestionToAdd.questionTitle, option:[], correctAnswer:'', questionType:newQuestionToAdd.questionType}]})
+      .then((res)=>{
+
+        setShowAddNewQuestionForm(false); 
+    
+        setMasterData((prev)=>({...prev, test_types:{...prev.test_types, [formUpdationKey]:{...prev.test_types[formUpdationKey], predefined_questions:{...prev.test_types[formUpdationKey].predefined_questions, newly_created_questions:[...prev.test_types[formUpdationKey].predefined_questions.newly_created_questions,  newQuestionToAdd.id]}}}}))
+
+
+        setTableRows((prev)=>([newQuestionToAdd,...prev]))
+
+        setSelectedRows((pre)=>[...pre, newQuestionToAdd.id])
 
       }).catch(console.log)
     }).catch(console.log)
 
-    setShowAddNewQuestionForm(false);
   }
   else
   {

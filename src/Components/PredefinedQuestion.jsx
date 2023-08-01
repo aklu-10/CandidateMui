@@ -26,24 +26,22 @@ const columns = [
   {
     field: 'questionTitle',
     headerName: 'Question Title',
-    width: 150,
-    // editable: true,
+    width: 550,
   },
   {
     field: 'questionLevel',
     headerName: 'Question Level',
-    type: 'number',
-    width: 80,
+    width: 110,
   },
   {
     field: 'technology',
     headerName: 'Technology',
-    width: 110,
+    width: 120,
   },
   {
     field: 'questionType',
     headerName: 'Question Type',
-    width: 110,
+    width: 120,
   },
 ];
 
@@ -52,26 +50,15 @@ const PredefinedQuestion = () => {
 
   const {masterData, setMasterData} = useContext(MasterDataContext);
 
-  const {formUpdationKey, validation, setValidation, tableRows, setTableRows, setShowAddNewQuestionForm, showAddNewQuestionForm, fetchRows} = useContext(ValidationContext);
+  const {formUpdationKey, validation, setValidation, tableRows, setTableRows, setShowAddNewQuestionForm, showAddNewQuestionForm, selectedRows, setSelectedRows} = useContext(ValidationContext);
   
-  
-
   const [selectedTechAndType, setSelectedTechAndType] = useState({technology:[],questionType:[]});
 
   if(!validation.no_of_random_question.isValid) return;
 
   if(Number(masterData.test_types[formUpdationKey].random_questions.no_of_random_question) === Number(masterData.test_types[formUpdationKey].total_no_question) ) return;
 
-  const handleAutoChecked = (obj) =>
-  {
-    if(obj?.selectRow && fetchRows.current)
-    {
-      for(let i=0; i<Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions); i++)
-        obj.selectRow(i);
-      fetchRows.current = false; 
-    }
-
-  }
+  
 
   const handleSearch = () =>
   {
@@ -82,19 +69,18 @@ const PredefinedQuestion = () => {
     if(!(techArr.length && typeArr.length))
       return;
 
-    let url = `http://localhost:8080/technologyQuestions?`;
+    let url = `http://localhost:5050/technologyQuestions?`;
     techArr.map(tech=>url+='technology='+tech+'&')
 
     axios.get(url)
     .then(({data})=>
     {
-      let i=-1;
       let res = data.map(({data:questionArr, technology})=>{
         let name = technology;
         return questionArr.map((element)=>
         {
           return {
-            id: ++i,
+            id:element.id,
             questionTitle:element.question,
             questionLevel:1,
             technology:name[0].toUpperCase()+name.slice(1,),
@@ -110,7 +96,7 @@ const PredefinedQuestion = () => {
       typeArr = typeArr.map(tech=>tech.toLowerCase());
       allData = (allData.filter(data=>typeArr.includes(data.questionType)))
 
-      setTableRows(allData.reverse());
+      setTableRows([...masterData.test_types[formUpdationKey].predefined_questions.newly_created_questions.reverse(), ...allData.reverse()]);
 
     })
 
@@ -118,9 +104,9 @@ const PredefinedQuestion = () => {
 
   const handleCellClick = (value) =>
   {
-
       if(Array.isArray(value))
       {
+        setSelectedRows(value)
         setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question: value}}}}));
       }
       else
@@ -136,13 +122,14 @@ const PredefinedQuestion = () => {
           setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[ ...pre.test_types[formUpdationKey].predefined_questions.already_selected_question, value.id ]}}}}));
       }
 
+
   }
 
 
   const handleClear = () =>
   {
     setSelectedTechAndType({technology:[], questionType:[]});
-    setTableRows([]);
+    // setTableRows([]);
     setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[] }}}}));
     
   }
@@ -150,32 +137,31 @@ const PredefinedQuestion = () => {
   useEffect(()=>
   {
 
-    if(tableRows.length==0)
-    {
-      axios.get("http://localhost:8080/technologyQuestions")
-      .then(({data})=>
-        {
-          let randomIndex = Math.floor(Math.random()*((data.length-1)));
-          let name = data[randomIndex].technology
-          let res = data[randomIndex].data.slice(0,Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions));
-          let allIds = [];
-          let i=0;
-          setTableRows(res.map((element)=>{
-            allIds = [...allIds, i]
-            return {
-              id: ++i,
-              questionTitle:element.question,
-              questionLevel:1,
-              technology:name,
-              questionType:'Mcq'
-            }
-          }));
-          
-          setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:allIds }}}}))
+      if(selectedRows.length===0)
+      {
+        axios.get("http://localhost:5050/technologyQuestions")
+        .then(({data})=>
+          {
+            let randomIndex = Math.floor(Math.random()*((data.length-1)));
+            let name = data[randomIndex].technology
+            let res = data[randomIndex].data.slice(0,Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions));
+            // let allIds = [];
+            setTableRows(res.map((element)=>{
+              // console.log(element)
+              // allIds = [...allIds, i]
+              return {
+                id:element.id,
+                questionTitle:element.question,
+                questionLevel:1,
+                technology:name,
+                questionType:'Mcq'
+              }
+            }));
             
-        })
-    }
-
+            // setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:allIds }}}}))
+              
+          })
+      }
 
   },[])
 
@@ -234,29 +220,28 @@ const PredefinedQuestion = () => {
 
         {/* //Table  */}
         <div className='h-[400px]'>
+          
           <DataGrid
-            apiRef={handleAutoChecked}
             rows={tableRows}
             columns={columns}
+            rowSelectionModel={selectedRows}
             initialState={{
               pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
+                paginationModel: { page: 0, pageSize: 5 },
               },
             }}
-            pageSizeOptions={[5]}
-            checkboxSelection
+            pageSizeOptions={[5, 10]}
             onCellClick={handleCellClick}
             onRowSelectionModelChange={handleCellClick}
-            disableRowSelectionOnClick
+            checkboxSelection
           />
+
         </div>
         
         {/* //Add New Question Form */}
         {
           showAddNewQuestionForm &&
-        <AddNewQuestion handleSearch={handleSearch}/>
+        <AddNewQuestion/>
         }
       </>
         }

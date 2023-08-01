@@ -24,7 +24,7 @@ export const baseCandidateFormData =
                     {
                         mcq: null,
                         programming: null,
-                        descriptive: null
+                        descriptive: null,
                     }
                 }
             ]
