@@ -1,12 +1,12 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react";
+import Label from "./Label";
 import { TextField } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { MasterDataContext } from "./CandidateTestCreation";
 import { ValidationContext } from "./CandidateTestForm";
 import { handleInputChange } from "../handlers/InputHandlers";
 import { IconButton } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete';
-import React from "react";
-import Label from "./Label";
 
 const ParticularTechnology = ({fieldOptions, techName, setAllTech, allTech, initial, loader, setLoader, index, setShowAddTechnologyButton, deleteSpecificTech}) =>{
 
@@ -85,8 +85,6 @@ const ParticularTechnology = ({fieldOptions, techName, setAllTech, allTech, init
         setMasterData((prev)=>({...prev, test_types: { ...prev.test_types, [formUpdationKey]: { ...prev.test_types[formUpdationKey], random_questions:{ ...prev.test_types[formUpdationKey].random_questions, technologies: updateTechnologies }}}}))
     },[])
 
-
-    console.log(techName, allTech[techName])
 
     return (
         <div className={`mb-[40px] flex`}>

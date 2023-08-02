@@ -1,7 +1,7 @@
 import ParticularTechnology from './ParticularTechnology';
+import InfoIcon from '@mui/icons-material/Info';
 import React, {memo, useState} from 'react'
 import { useContext } from 'react';
-import InfoIcon from '@mui/icons-material/Info';
 import { MasterDataContext } from './CandidateTestCreation';
 import { ValidationContext } from './CandidateTestForm';
 import { Button } from '@mui/material';

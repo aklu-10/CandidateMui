@@ -1,15 +1,15 @@
 import CandidateTestForm from './CandidateTestForm';
-import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useRef, memo, createContext, useEffect } from 'react'
 import { baseCandidateFormData } from '../data/baseCandidateFormData';
 import { Button } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const MasterDataContext = createContext({})
 
 const CandidateTestCreation = () => {
 
-    console.log("%cCandidate Test Creation","color:red;")
+    console.log("%cCandidate Test Creation","color:red;");
 
     let toastTimer = useRef({timer:null,run:true});
     //masterData
@@ -25,7 +25,9 @@ const CandidateTestCreation = () => {
     const handleCandidateFormSubmission = (e) =>
     {
         let result = {...masterData, test_types: Object.values(masterData.test_types)};
+        
         console.log(result)
+
     }
 
     const [isValidSubmission, setIsValidSubmission] = useState(false);
@@ -61,14 +63,10 @@ const CandidateTestCreation = () => {
     useEffect(()=>
     {
 
-        // let allType = Object.keys(masterData.test_types["form1"].random_questions.technologies[0].question_type_details);
-        // console.log(  masterData.test_types["form1"].random_questions.technologies[0].question_type_details[allType[allType.indexOf("something")]]);
-
-
         let checkPredefined = false, checkRandom = false;
 
         Object.keys(masterData.test_types).map(form=>{
-         
+
             let {test_name, test_type_key, total_no_question, predefined_questions:{no_of_predefined_questions}, random_questions:{no_of_random_question}} = masterData.test_types[form];
 
             if(test_name && test_type_key && (Number(total_no_question) > 0 ) && (Number(no_of_predefined_questions) >= 0 ) && (Number(no_of_random_question) >= 0 ) && ( (Number(no_of_predefined_questions) + Number(no_of_random_question)) <= Number(total_no_question) ) )
@@ -99,7 +97,7 @@ const CandidateTestCreation = () => {
                     }
                     else
                     {
-                        if(masterData.test_types[form].is_mcq)
+                        if(masterData.test_types[form].is_mcq === "true" || masterData.test_types[form].is_mcq)
                         {
                             sumOfAllQuestionDetails = masterData.test_types[form].random_questions.technologies.reduce((acc,item)=>
                             {
@@ -116,7 +114,7 @@ const CandidateTestCreation = () => {
                             },0)
                         }
                     }
-                    
+
                     if(sumOfAllQuestionDetails !== Number(no_of_random_question)){
                         setIsValidSubmission(false)
                         return;
@@ -153,7 +151,7 @@ const CandidateTestCreation = () => {
 
         <>
 
-            <ToastContainer position='bottom-right'/>
+            <ToastContainer position='top-right'/>
 
 
         <MasterDataContext.Provider value={{masterData, setMasterData, handleAddNewTestForm, handleDeleteTestForm}}>

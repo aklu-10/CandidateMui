@@ -135,6 +135,13 @@
             "with"
           ],
           "correct_answer": "val"
+        },
+        {
+          "id": 1124,
+          "question": "hgytryeyteryttyt",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
         }
       ]
     },
@@ -273,6 +280,13 @@
             "None of the above."
           ],
           "correct_answer": "Internal storage of the component."
+        },
+        {
+          "id": 3434,
+          "question": "what is react ?",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "descriptive"
         }
       ]
     },
@@ -450,6 +464,118 @@
           "question": "WAP to print dynamic data ?",
           "option": [],
           "correctAnswer": ""
+        },
+        {
+          "id": 5059,
+          "question": "What is runtime polymorphism?",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5061,
+          "question": "what is compile time polymorphism?",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5063,
+          "question": "java oo java",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "descriptive"
+        },
+        {
+          "id": 5065,
+          "question": "11111111111111111",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5067,
+          "question": "665431",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5069,
+          "question": "445324123123",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5071,
+          "question": "8976",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5073,
+          "question": "123141234234",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5075,
+          "question": "lalala",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5077,
+          "question": "what is java ?",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5079,
+          "question": "wadz",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5081,
+          "question": "23",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5083,
+          "question": "23",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5085,
+          "question": "23",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5087,
+          "question": "55",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
+        },
+        {
+          "id": 5089,
+          "question": "JVM",
+          "option": [],
+          "correctAnswer": "",
+          "questionType": "programming"
         }
       ]
     },

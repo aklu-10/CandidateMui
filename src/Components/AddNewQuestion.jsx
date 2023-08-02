@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
 import Select from 'react-select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import SaveIcon from '@mui/icons-material/Save';
-import { Button ,IconButton, Radio, TableRow, TextField, formControlClasses  } from '@mui/material'
 import Label from './Label';
-import { useContext } from 'react';
-import { ValidationContext } from './CandidateTestForm';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import axios from 'axios';
+import React, { useState } from 'react'
+import { Button ,IconButton, TextField } from '@mui/material'
+import { useContext } from 'react';
+import { ValidationContext } from './CandidateTestForm';
 import { MasterDataContext } from './CandidateTestCreation';
 
 let technologies = [
@@ -51,8 +51,6 @@ const handleDeleteOption = (optionField) =>
 
 const handleSaveForm = () =>
 {
-  // console.log(masterData.test_types.predefined_questions.newly_created_questions)
-
   if(addNewQuestionState.questionType === 'mcq')
   {
     if(!((Object.keys(addNewQuestionState.options).length > 1) && (Object.keys(addNewQuestionState.options).filter(option=>addNewQuestionState.options[option].trim().length!=0).length === Object.keys(addNewQuestionState.options).length) && addNewQuestionState.correctAnswer) )
@@ -65,9 +63,7 @@ const handleSaveForm = () =>
     axios.get("http://localhost:5050/technologyQuestions/"+ids[addNewQuestionState.technology])
     .then(({data})=>
     {
-      let obj = {...data};
-      let questions = [...obj.data]; 
-      let lastIndex = questions.slice(-1)[0].id+1;
+      let obj = {...data}, questions = [...obj.data], lastIndex = questions.slice(-1)[0].id+1;
       let newQuestionToAdd = {
         id:lastIndex+1,
         questionTitle:addNewQuestionState.questionTitle,
@@ -81,8 +77,7 @@ const handleSaveForm = () =>
 
         setShowAddNewQuestionForm(false); 
     
-        setMasterData((prev)=>({...prev, test_types:{...prev.test_types, [formUpdationKey]:{...prev.test_types[formUpdationKey], predefined_questions:{...prev.test_types[formUpdationKey].predefined_questions, newly_created_questions:[...prev.test_types[formUpdationKey].predefined_questions.newly_created_questions,  newQuestionToAdd.id]}}}}))
-
+        setMasterData((prev)=>({...prev, test_types:{...prev.test_types, [formUpdationKey]:{...prev.test_types[formUpdationKey], predefined_questions:{...prev.test_types[formUpdationKey].predefined_questions, newly_created_questions:[...prev.test_types[formUpdationKey].predefined_questions.newly_created_questions,  newQuestionToAdd], already_selected_question: [...prev.test_types[formUpdationKey].predefined_questions.already_selected_question, res.data.id]}}}}))
 
         setTableRows((prev)=>([newQuestionToAdd,...prev]))
 

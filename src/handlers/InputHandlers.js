@@ -105,7 +105,6 @@ export const handleInputChange = (e, {validation, setValidation, setMasterData, 
                     }
                 }
 
-
                 if((Number(e.target.value) <= 0 )) 
                 {
                     setValidation((prev)=>({...prev, technologies: { ...prev.technologies, isValid: false}}))
@@ -131,16 +130,7 @@ export const handleInputChange = (e, {validation, setValidation, setMasterData, 
                 setMasterData((prev)=>({...prev, test_types:{ ...prev.test_types, [formUpdationKey]: { ...prev.test_types[formUpdationKey], random_questions:{ ...prev.test_types[formUpdationKey].random_questions, technologies: copyTechnologies }}}}))
                 return;
             }
-
-            // setMasterData((prev)=>({...prev, test_types:{ ...prev.test_types, [formUpdationKey]: { ...prev.test_types[formUpdationKey], random_questions:{ ...prev.test_types[formUpdationKey].random_questions, technologies: copyTechnologies }}}}))
-
         }
-        else
-        {
-            
-        }
-
-
     }
 
 

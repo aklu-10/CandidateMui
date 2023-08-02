@@ -5,14 +5,15 @@ import Label from './Label';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddNewQuestion from './AddNewQuestion';
+import InfoIcon from '@mui/icons-material/Info';
+import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { useContext } from 'react';
 import { MasterDataContext } from './CandidateTestCreation';
 import { ValidationContext } from './CandidateTestForm';
-import InfoIcon from '@mui/icons-material/Info';
 import { handleInputChange } from '../handlers/InputHandlers';
-import axios from 'axios';
-import AddNewQuestion from './AddNewQuestion';
+import { toast } from 'react-toastify';
 
 
 let technologies = [
@@ -47,7 +48,6 @@ const columns = [
 
 const PredefinedQuestion = () => {
 
-
   const {masterData, setMasterData} = useContext(MasterDataContext);
 
   const {formUpdationKey, validation, setValidation, tableRows, setTableRows, setShowAddNewQuestionForm, showAddNewQuestionForm, selectedRows, setSelectedRows} = useContext(ValidationContext);
@@ -58,16 +58,16 @@ const PredefinedQuestion = () => {
 
   if(Number(masterData.test_types[formUpdationKey].random_questions.no_of_random_question) === Number(masterData.test_types[formUpdationKey].total_no_question) ) return;
 
-  
-
   const handleSearch = () =>
   {
     let {technology, questionType} = (selectedTechAndType)
     let techArr = technology.map(element=>element.value);
     let typeArr = questionType.map(element=>element.value);
 
-    if(!(techArr.length && typeArr.length))
+    if(!(techArr.length && typeArr.length)){
+      toast.error("Please provide the required fields.")
       return;
+    }
 
     let url = `http://localhost:5050/technologyQuestions?`;
     techArr.map(tech=>url+='technology='+tech+'&')
@@ -96,6 +96,20 @@ const PredefinedQuestion = () => {
       typeArr = typeArr.map(tech=>tech.toLowerCase());
       allData = (allData.filter(data=>typeArr.includes(data.questionType)))
 
+      let uniqueId = [...new Set(allData.map(data=>data.id))]
+      
+      allData = allData.filter(data=>uniqueId.includes(data.id));
+
+      allData = allData.filter(obj=>
+        {
+            if(uniqueId.includes(obj.id))
+            {
+                let ind = uniqueId.indexOf(obj.id);
+                uniqueId.splice(ind,1);
+                return obj;
+            }
+        })
+      
       setTableRows([...masterData.test_types[formUpdationKey].predefined_questions.newly_created_questions.reverse(), ...allData.reverse()]);
 
     })
@@ -121,16 +135,13 @@ const PredefinedQuestion = () => {
         else
           setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[ ...pre.test_types[formUpdationKey].predefined_questions.already_selected_question, value.id ]}}}}));
       }
-
-
   }
 
 
   const handleClear = () =>
   {
     setSelectedTechAndType({technology:[], questionType:[]});
-    // setTableRows([]);
-    setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[] }}}}));
+    // setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:[] }}}}));
     
   }
 
@@ -145,10 +156,7 @@ const PredefinedQuestion = () => {
             let randomIndex = Math.floor(Math.random()*((data.length-1)));
             let name = data[randomIndex].technology
             let res = data[randomIndex].data.slice(0,Number(masterData.test_types[formUpdationKey].predefined_questions.no_of_predefined_questions));
-            // let allIds = [];
             setTableRows(res.map((element)=>{
-              // console.log(element)
-              // allIds = [...allIds, i]
               return {
                 id:element.id,
                 questionTitle:element.question,
@@ -157,9 +165,6 @@ const PredefinedQuestion = () => {
                 questionType:'Mcq'
               }
             }));
-            
-            // setMasterData((pre)=>({...pre, test_types:{...pre.test_types, [formUpdationKey]: {...pre.test_types[formUpdationKey], predefined_questions:{...pre.test_types[formUpdationKey].predefined_questions, already_selected_question:allIds }}}}))
-              
           })
       }
 
