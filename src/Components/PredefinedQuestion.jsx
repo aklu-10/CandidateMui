@@ -69,7 +69,7 @@ const PredefinedQuestion = () => {
       return;
     }
 
-    let url = `http://localhost:5050/technologyQuestions?`;
+    let url = `http://localhost:8080/technologyQuestions?`;
     techArr.map(tech=>url+='technology='+tech+'&')
 
     axios.get(url)
@@ -150,7 +150,7 @@ const PredefinedQuestion = () => {
 
       if(selectedRows.length===0)
       {
-        axios.get("http://localhost:5050/technologyQuestions")
+        axios.get("http://localhost:8080/technologyQuestions")
         .then(({data})=>
           {
             let randomIndex = Math.floor(Math.random()*((data.length-1)));

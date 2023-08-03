@@ -60,7 +60,7 @@ const handleSaveForm = () =>
   if(addNewQuestionState.technology && addNewQuestionState.questionType && addNewQuestionState.questionTitle)
   {
     let ids = { Python:1, react:2, java:3, php:4 };
-    axios.get("http://localhost:5050/technologyQuestions/"+ids[addNewQuestionState.technology])
+    axios.get("http://localhost:8080/technologyQuestions/"+ids[addNewQuestionState.technology])
     .then(({data})=>
     {
       let obj = {...data}, questions = [...obj.data], lastIndex = questions.slice(-1)[0].id+1;
@@ -72,7 +72,7 @@ const handleSaveForm = () =>
         questionType:addNewQuestionState.questionType
       }
 
-      axios.put("http://localhost:5050/technologyQuestions/"+ids[addNewQuestionState.technology], {...obj, data: [...questions, {id:newQuestionToAdd.id, question:newQuestionToAdd.questionTitle, option:[], correctAnswer:'', questionType:newQuestionToAdd.questionType}]})
+      axios.put("http://localhost:8080/technologyQuestions/"+ids[addNewQuestionState.technology], {...obj, data: [...questions, {id:newQuestionToAdd.id, question:newQuestionToAdd.questionTitle, option:[], correctAnswer:'', questionType:newQuestionToAdd.questionType}]})
       .then((res)=>{
 
         setShowAddNewQuestionForm(false); 

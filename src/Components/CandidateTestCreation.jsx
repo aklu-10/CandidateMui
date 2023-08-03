@@ -132,7 +132,10 @@ const CandidateTestCreation = () => {
                         return;
                     }
                     else{
-                        setIsValidSubmission(true)
+                        if(Number(total_no_question) != Number(no_of_predefined_questions) + Number(no_of_random_question))
+                            setIsValidSubmission(false);
+                        else
+                            setIsValidSubmission(true)
                         return;
                     }
                 }
@@ -140,6 +143,7 @@ const CandidateTestCreation = () => {
 
                 if(!(Number(no_of_predefined_questions) === 0 || Number(no_of_random_question) === 0))
                     setIsValidSubmission(true);
+
             }
             else
                 setIsValidSubmission(false);

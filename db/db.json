@@ -280,13 +280,6 @@
             "None of the above."
           ],
           "correct_answer": "Internal storage of the component."
-        },
-        {
-          "id": 3434,
-          "question": "what is react ?",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "descriptive"
         }
       ]
     },
@@ -530,52 +523,10 @@
         },
         {
           "id": 5077,
-          "question": "what is java ?",
+          "question": "JDBC",
           "option": [],
           "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5079,
-          "question": "wadz",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5081,
-          "question": "23",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5083,
-          "question": "23",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5085,
-          "question": "23",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5087,
-          "question": "55",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
-        },
-        {
-          "id": 5089,
-          "question": "JVM",
-          "option": [],
-          "correctAnswer": "",
-          "questionType": "programming"
+          "questionType": "descriptive"
         }
       ]
     },

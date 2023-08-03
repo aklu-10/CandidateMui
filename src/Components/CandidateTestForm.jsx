@@ -20,6 +20,7 @@ export const ValidationContext = createContext({});
 const CandidateTestForm = ({ formUpdationKey }) => 
 {
     console.log("%cCandidate Test Form", "color:red;");
+    
     let technologies = [
         { label: "Python", value: "Python" },
         { label: "Java", value: "Java" },
@@ -74,9 +75,6 @@ const CandidateTestForm = ({ formUpdationKey }) =>
         { label: "Cognitive", value: "Cognitive" },
         { label: "Role Specific", value: "Role Specific" },
     ];
-
-    
-    
 
 return (
     <ValidationContext.Provider
@@ -174,7 +172,7 @@ return (
             { label: "Candidate", value: false },
             ]}
             onChange={(value) =>
-            handleSelectChange("is_for_agent_panel", value)
+            handleSelectChange("is_for_agent_panel", value, {masterData, setMasterData, formUpdationKey})
             }
         />
         </div>
